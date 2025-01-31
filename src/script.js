@@ -33,27 +33,49 @@ function formatDate(date){
     ];
     let day= days [date.getDay()];
     if (minute<10){
-        minutes="0${minutes}";
+        minutes='0${minutes}';
     }
+    return '${day} ${hours}:${minutes}'
 }
 function searchCity(city){
-    let apiKey="b2a5adcct04b33178913oc335433";
+    let apiKey="b2a5adcct04b33178913oc335f405433";
     let apiUrl=
-    "https://api.shecodes.io/weather/v1/current?query=${city}&key=${apikey}";
+    'https://api.shecodes.io/weather/v1/current?query=${city}&key=${apikey}';
     axios.get(apiUrl.).then(refreshWeather);
-    console.log(apiUrl);
 }
 
 function handleSearchSubmit(event) {
     event.preventDefault();
-    let searchInput=document.querySelector("search-form-input");
-    let cityElement=document.querySelector("city");
-    cityElement.innerHTML=searchInput.value;
+    let searchInput=document.querySelector("#search-form-input");
+    
     searchCity(searchInput.value);
     
     }
+    funcion displayForcast() {
+        let days=["Tues","Weds","Thurs","Fri","Sat"],
+        let forcastHtml="",
 
-}
-let searchFormElement=document.querySelector("search-form");
-searchFormElement.addEventListerner("submit",handSearchSubmit);
+        days.forEach(function(day)){
+            forcastHtml=
+            forcastHtml+
+            '    
+<div class="weather-forcast-day">
+    <div class="weather-forcast-date">$(day)</div>
+    <div class="weather-forcast-icon">🌤️ </div>
+<div class="weather-forcast-temperatures" >
+<strong>15&#176,</strong>
+</div>
+<div class="weather-forcast-temperature" 8&#176;</div>
+</div>
+</div>
+';
+        });
+        letforcastElement=document.querySelector("#forcast");
+        forcastElement.innerHTML=forcastHtml;
+        }
+let searchFormElement=document.querySelector("#search-form");
+searchFormElement.addEventListener("submit",handSearchSubmit);
+
 searchCity ("Johannesburg");
+displayForcast();
+
